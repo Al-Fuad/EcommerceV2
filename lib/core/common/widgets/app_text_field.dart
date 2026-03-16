@@ -71,8 +71,8 @@ class _AppTextFieldState extends State<AppTextField> {
                     },
                     child: Icon(
                       isShowPassword
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
                       color: AppColor.hintColor,
                     ),
                   )

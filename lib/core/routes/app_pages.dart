@@ -3,7 +3,10 @@ import 'package:test_project/core/routes/app_routes.dart';
 import 'package:test_project/features/add_product/presentation/bindings/add_post_binding.dart';
 import 'package:test_project/features/add_product/presentation/views/add_post_screen.dart';
 import 'package:test_project/features/auth/presentation/bindings/auth_binding.dart';
+import 'package:test_project/features/auth/presentation/views/auth_message.dart';
 import 'package:test_project/features/auth/presentation/views/forgot_password_screen.dart';
+import 'package:test_project/features/auth/presentation/views/otp_screen.dart';
+import 'package:test_project/features/auth/presentation/views/reset_password_screen.dart';
 import 'package:test_project/features/auth/presentation/views/signin_screen.dart';
 import 'package:test_project/features/auth/presentation/views/signup_screen.dart';
 import 'package:test_project/features/bottom_nav/presentation/bindings/bottom_nav_binding.dart';
@@ -24,7 +27,7 @@ import 'package:test_project/features/splash/views/splash_screen.dart';
 class AppPages {
   const AppPages._();
 
-  static final pages = <GetPage>[
+  static final pages = [
     GetPage(name: AppRoutes.splash, page: () => const SplashScreen()),
     GetPage(
       name: AppRoutes.onboarding,
@@ -44,6 +47,21 @@ class AppPages {
     GetPage(
       name: AppRoutes.forgotPassword,
       page: () => const ForgotPasswordScreen(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.otp,
+      page: () => const OtpScreen(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.resetPassword,
+      page: () => const ResetPasswordScreen(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.authMessage,
+      page: () => const AuthMessage(),
       binding: AuthBinding(),
     ),
     GetPage(

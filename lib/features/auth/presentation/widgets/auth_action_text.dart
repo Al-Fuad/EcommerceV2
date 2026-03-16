@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:test_project/core/constants/app_color.dart';
 
-class AuthNavigator extends StatelessWidget {
-  const AuthNavigator({
+class AuthActionText extends StatelessWidget {
+  const AuthActionText({
     super.key,
     required this.text,
     required this.actionText,
     required this.onTap,
+    this.isOtpScreen = false,
   });
 
   final String text;
   final String actionText;
   final VoidCallback onTap;
+  final bool isOtpScreen;
 
   @override
   Widget build(BuildContext context) {

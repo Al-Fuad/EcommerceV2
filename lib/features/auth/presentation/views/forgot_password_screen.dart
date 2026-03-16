@@ -4,6 +4,7 @@ import 'package:test_project/core/common/widgets/app_button.dart';
 import 'package:test_project/core/common/widgets/app_text_field.dart';
 import 'package:test_project/core/constants/app_assets.dart';
 import 'package:test_project/core/constants/app_color.dart';
+import 'package:test_project/core/routes/app_routes.dart';
 import 'package:test_project/features/auth/presentation/controllers/auth_controller.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
@@ -42,10 +43,20 @@ class ForgotPasswordScreen extends StatelessWidget {
               SizedBox(height: 43),
               AppButton(
                 text: "Send OTP",
-                onPressed: () {
-                  authController.forgotPassword(
+                onPressed: () async {
+                  final isForgotPassword = await authController.forgotPassword(
                     emailController.text,
                   );
+                  if (isForgotPassword) {
+                    Get.toNamed(AppRoutes.otp);
+                  } else {
+                    Get.snackbar(
+                      "Error",
+                      "Failed to send OTP. Please try again.",
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                    );
+                  }
                 },
               ),
             ],

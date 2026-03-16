@@ -4,9 +4,10 @@ import 'package:test_project/core/common/widgets/app_button.dart';
 import 'package:test_project/core/common/widgets/app_text_field.dart';
 import 'package:test_project/core/constants/app_assets.dart';
 import 'package:test_project/core/constants/app_color.dart';
+import 'package:test_project/core/routes/app_routes.dart';
 import 'package:test_project/features/auth/presentation/controllers/auth_controller.dart';
-import 'package:test_project/features/auth/presentation/views/signin_screen.dart';
-import 'package:test_project/features/auth/presentation/widgets/auth_navigator.dart';
+import 'package:test_project/features/auth/presentation/widgets/auth_action_text.dart';
+import 'package:test_project/features/auth/presentation/widgets/auth_header.dart';
 import 'package:test_project/features/auth/presentation/widgets/or_line.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -29,14 +30,7 @@ class SignupScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 61),
-              Image.asset(AppAssets.logo, height: 88),
-              SizedBox(height: 24),
-              Text(
-                "Sign Up to buy and sell",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 24),
+              AuthHeader(title: "Sign Up to buy and sell"),
               AppTextField(
                 controller: firstNameController,
                 label: "First name",
@@ -81,12 +75,16 @@ class SignupScreen extends StatelessWidget {
                     firstNameController.text,
                     lastNameController.text,
                     emailController.text,
-                    int.parse(contactNumberController.text),
+                    int.parse(
+                      contactNumberController.text.isNotEmpty
+                          ? contactNumberController.text
+                          : "0",
+                    ),
                     locationController.text,
                     passwordController.text,
                   );
                   if (isSignedUp) {
-                    Get.to(() => SigninScreen());
+                    Get.toNamed(AppRoutes.otp);
                   } else {
                     Get.snackbar(
                       "Error",
@@ -130,11 +128,11 @@ class SignupScreen extends StatelessWidget {
                 },
               ),
               SizedBox(height: 16),
-              AuthNavigator(
+              AuthActionText(
                 text: "Already have an account?",
                 actionText: "Sign In",
                 onTap: () {
-                  Get.to(() => SigninScreen());
+                  Get.toNamed(AppRoutes.signIn);
                 },
               ),
             ],
