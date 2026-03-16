@@ -23,30 +23,33 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        print("Button start: $text");
-        onPressed!();
-        print("Button pressed: $text");
-      },
-      style: ElevatedButton.styleFrom(
-        elevation: 0,
-        backgroundColor: color,
-        minimumSize: size ?? Size(double.infinity, 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: isBordered
-              ? BorderSide(color: textColor)
-              : BorderSide(color: AppColor.transparent),
+    return SizedBox(
+      width: size?.width ?? double.infinity,
+      height: size?.height ?? 50,
+      child: ElevatedButton(
+        onPressed: () {
+          print("Button start: $text");
+          onPressed!();
+          print("Button pressed: $text");
+        },
+        style: ElevatedButton.styleFrom(
+          elevation: 0,
+          backgroundColor: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: isBordered
+                ? BorderSide(color: textColor)
+                : BorderSide(color: AppColor.transparent),
+          ),
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          icon ?? SizedBox.shrink(),
-          if (icon != null) SizedBox(width: 8),
-          Text(text, style: TextStyle(color: textColor, fontSize: 16)),
-        ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            icon ?? SizedBox.shrink(),
+            if (icon != null) SizedBox(width: 8),
+            Text(text, style: TextStyle(color: textColor, fontSize: 16)),
+          ],
+        ),
       ),
     );
   }

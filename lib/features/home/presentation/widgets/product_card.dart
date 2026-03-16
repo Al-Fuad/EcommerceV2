@@ -13,7 +13,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoutes.product);
+        Get.toNamed(AppRoutes.product, arguments: {"isBid": false});
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

@@ -21,7 +21,8 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ProductController>();
-    final categoryTitle = Get.arguments['categoryTitle'] as String? ?? "Category";
+    final categoryTitle =
+        Get.arguments['categoryTitle'] as String? ?? "Category";
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(

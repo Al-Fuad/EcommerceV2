@@ -7,83 +7,73 @@ import 'package:test_project/core/routes/app_routes.dart';
 import 'package:test_project/features/onboarding/presentation/controllers/onboarding_controller.dart';
 import 'package:test_project/features/onboarding/presentation/models/onboarding_model.dart';
 
-class OnboardingScreen extends GetView<OnboardingController> {
+class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<OnboardingController>();
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-          top: 61,
-          bottom: 20,
-        ),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             Expanded(
               flex: 6,
-              child: PageView.builder(
-                controller: controller.pageController,
-                scrollDirection: Axis.horizontal,
-                onPageChanged: (value) {
-                  controller.updateCurrentIndex(value);
-                },
-                itemCount: onboardingData.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        onboardingData[index].title,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
+              child: Obx(
+                () => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      onboardingData[controller.currentIndex.value].title,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      onboardingData[controller.currentIndex.value].description,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 40),
+                    Stack(
+                      alignment: Alignment.bottomCenter,
+                      clipBehavior: Clip.none,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            onboardingData[controller.currentIndex.value].image,
+                            width: 340,
+                            height: 340,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        onboardingData[index].description,
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 50),
-                      Stack(
-                        alignment: Alignment.bottomCenter,
-                        clipBehavior: Clip.none,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.asset(
-                              onboardingData[index].image,
-                              width: 350,
-                              height: 350,
-                              fit: BoxFit.cover,
-                            ),
+                        Positioned(
+                          bottom: -25,
+                          child: AppButton(
+                            size: const Size(200, 50),
+                            text:
+                                controller.currentIndex.value ==
+                                    onboardingData.length - 1
+                                ? 'Get Started'
+                                : 'Next',
+                            onPressed: () {
+                              if (controller.currentIndex.value ==
+                                  onboardingData.length - 1) {
+                                Get.offNamed(AppRoutes.signIn);
+                              } else {
+                                controller.goToNextPage();
+                              }
+                            },
                           ),
-                          Positioned(
-                            bottom: -25,
-
-                            child: AppButton(
-                              size: const Size(200, 50),
-                              text: index == onboardingData.length - 1
-                                  ? 'Get Started'
-                                  : 'Next',
-                              onPressed: () {
-                                if (index == onboardingData.length - 1) {
-                                  Get.offAllNamed(AppRoutes.signIn);
-                                } else {
-                                  controller.goToNextPage();
-                                }
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
-                },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 25),
